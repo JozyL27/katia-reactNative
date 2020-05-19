@@ -1,7 +1,9 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-function Landing() {
+function Landing({navigation}) {
   return (
     <View
       style={{
@@ -25,6 +27,7 @@ function Landing() {
         Katia is a social media application made for gamers by gamers. Quickly
         and easily find others who share the same games and platforms as you.
       </Text>
+      <Button title="Login" onPress={() => navigation.navigate('Login')} />
     </View>
   );
 }

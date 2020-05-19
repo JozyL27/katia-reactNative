@@ -4,14 +4,22 @@ import {NavigationContainer, StackActions} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Landing from './src/Components/Landing/Landing';
 import {View, Text} from 'react-native';
+import Login from './src/Components/Login/Login'
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" component={Landing} />
+      <Stack.Navigator screenOptions={{
+        headerShown: false,
+      }}>
+        <Stack.Screen
+          name="Landing"
+          component={Landing}
+          options={{title: 'Welcome'}}
+        />
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
