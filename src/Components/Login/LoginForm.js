@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   buttonContainer: {
-      paddingVertical: 15,
-      backgroundColor: 'grey',
+    paddingVertical: 15,
+    backgroundColor: 'grey',
   },
   buttonText: {
-      textAlign: 'center',
-      fontWeight: 'bold',
-      color: '#FFF'
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#FFF',
   },
 });
