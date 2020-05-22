@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+import SignUpForm from './SignUpForm';
 
 export default class SignUp extends Component {
   render() {
@@ -17,7 +18,7 @@ export default class SignUp extends Component {
           <Text style={styles.name}>Katia</Text>
         </View>
         <View style={styles.formContainer}>
-          {/* insert signup form here */}
+          <SignUpForm />
         </View>
         <Text style={styles.question}>Already have an account?</Text>
         <TouchableOpacity
