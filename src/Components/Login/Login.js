@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, KeyboardAvoidingView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Button,
+} from 'react-native';
 import LoginForm from './LoginForm';
 
 export default class Login extends Component {
@@ -12,6 +18,10 @@ export default class Login extends Component {
         <View style={styles.formContainer}>
           <LoginForm />
         </View>
+        <Button
+          title="SignUp"
+          onPress={() => this.props.navigation.navigate('SignUp')}
+        />
       </KeyboardAvoidingView>
     );
   }

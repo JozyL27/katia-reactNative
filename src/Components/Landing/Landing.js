@@ -26,6 +26,7 @@ function Landing({navigation}) {
         and easily find others who share the same games and platforms as you.
       </Text>
       <Button title="Login" onPress={() => navigation.navigate('Login')} />
+      <Button title="SignUp" onPress={() => navigation.navigate('SignUp')} />
     </View>
   );
 }
