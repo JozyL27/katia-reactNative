@@ -21,11 +21,7 @@ export default function App() {
           component={Landing}
           options={{title: 'Welcome'}}
         />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          // navigation={this.navigation}
-        />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
