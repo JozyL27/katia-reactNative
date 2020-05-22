@@ -7,6 +7,7 @@ import {
   Button,
 } from 'react-native';
 import LoginForm from './LoginForm';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class Login extends Component {
   render() {
@@ -18,10 +19,13 @@ export default class Login extends Component {
         <View style={styles.formContainer}>
           <LoginForm />
         </View>
-        <Button
+        <Text style={styles.question}>Don't have an account?</Text>
+        <TouchableOpacity
           title="SignUp"
-          onPress={() => this.props.navigation.navigate('SignUp')}
-        />
+          style={styles.signupLink}
+          onPress={() => this.props.navigation.navigate('SignUp')}>
+          <Text style={styles.buttonText}>SignUp</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
@@ -40,5 +44,17 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     marginTop: '50%',
+  },
+  question: {
+    textAlign: 'center',
+    color: '#fff',
+  },
+  signupLink: {
+    padding: 10,
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });
