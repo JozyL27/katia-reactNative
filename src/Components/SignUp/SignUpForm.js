@@ -6,11 +6,57 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import TokenService from '../../services/token-service';
+import AuthService from '../../services/auth-api-service';
 
 export default class LoginForm extends Component {
+  static defaultProps = {
+    onRegistrationSuccess: () => {},
+  };
+  state = {error: null, email: '', display_name: '', password: ''};
+
+  // have to add ref to inputs to clear them
+  // add loading after press of button or send user to login on press
+
+  handleSubmit = ev => {
+    this.setState({error: null});
+    ev.preventDefault();
+    const {email, display_name, password} = this.state;
+    const user = {
+      email: email.toLowerCase(),
+      display_name: display_name,
+      password: password,
+    };
+    console.log(user);
+
+    AuthService.registerUser(user)
+      .then(() => {
+        AuthService.postLogin({
+          email: email.toLowerCase().trim(),
+          password: password,
+        })
+          .then(res => {
+            this.emailInput.clear();
+            this.usernameInput.clear();
+            this.passwordInput.clear();
+            this.state.email = '';
+            this.state.display_name = '';
+            this.state.password = '';
+            TokenService.saveAuthToken(res.authToken);
+            this.props.onRegistrationSuccess();
+          })
+          .catch(error => this.setState({error: error.message}));
+      })
+      .catch(res => {
+        this.setState({error: res.error});
+      });
+  };
+
   render() {
+    const {error} = this.state;
     return (
       <View style={styles.container}>
+        {error && <Text>{error}</Text>}
         <TextInput
           style={styles.input}
           placeholder="email"
@@ -20,6 +66,8 @@ export default class LoginForm extends Component {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          ref={input => (this.emailInput = input)}
+          onChangeText={email => this.setState({email})}
         />
 
         <TextInput
@@ -31,6 +79,7 @@ export default class LoginForm extends Component {
           autoCapitalize="none"
           autoCorrect={false}
           ref={input => (this.usernameInput = input)}
+          onChangeText={display_name => this.setState({display_name})}
         />
 
         <TextInput
@@ -40,9 +89,13 @@ export default class LoginForm extends Component {
           placeholderTextColor="rgba(255,255,255,0.7)"
           returnKeyType="go"
           ref={input => (this.passwordInput = input)}
+          onChangeText={password => this.setState({password})}
+          onSubmitEditing={this.handleSubmit}
         />
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={this.handleSubmit}>
           <Text style={styles.buttonText}>SignUp</Text>
         </TouchableOpacity>
       </View>
