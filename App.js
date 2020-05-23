@@ -7,6 +7,7 @@ import {View, Text} from 'react-native';
 import Login from './src/Components/Login/Login';
 import SignUp from './src/Components/SignUp/SignUp';
 import {UserProvider} from './src/Contexts/UserContext';
+import Main from './src/Components/Main/Main';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
           />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>
       </UserProvider>
     </NavigationContainer>

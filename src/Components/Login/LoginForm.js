@@ -20,6 +20,7 @@ export default class LoginForm extends Component {
     this.setState({error: null});
     ev.preventDefault();
     const {email, password} = this.state;
+    console.log(this.state);
 
     AuthApiService.postLogin({
       email: email.toLowerCase().trim(),
@@ -52,6 +53,7 @@ export default class LoginForm extends Component {
           autoCapitalize="none"
           autoCorrect={false}
           ref={input => (this.emailInput = input)}
+          onChangeText={email => this.setState({email})}
         />
         <TextInput
           style={styles.input}
@@ -61,9 +63,12 @@ export default class LoginForm extends Component {
           returnKeyType="go"
           ref={input => (this.passwordInput = input)}
           onSubmitEditing={this.handleSubmitJwtAuth}
+          onChangeText={password => this.setState({password})}
         />
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={this.handleSubmitJwtAuth}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
