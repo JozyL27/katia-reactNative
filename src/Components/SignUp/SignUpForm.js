@@ -43,7 +43,7 @@ export default class LoginForm extends Component {
         />
 
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>SignUp</Text>
         </TouchableOpacity>
       </View>
     );
