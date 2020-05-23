@@ -38,10 +38,10 @@ export class UserProvider extends Component {
     const state = {user_id: -1, user: nullUser, socket: null, error: null};
 
     if (TokenService.hasAuthToken()) {
-      const account = TokenService.getUserFromToken(TokenService.getAuthToken()) || {}
-      const socket = io(config.SOCKET_CONNECTION)
-      state.user_id = account.id
-      state.socket = socket.connect()
+      const account = TokenService.getUserFromToken(TokenService.getAuthToken()) || {};
+      const socket = io(config.SOCKET_CONNECTION);
+      state.user_id = account.id;
+      state.socket = socket.connect();
     }
 
     this.state = state;
