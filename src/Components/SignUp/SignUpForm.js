@@ -90,6 +90,7 @@ export default class LoginForm extends Component {
           returnKeyType="go"
           ref={input => (this.passwordInput = input)}
           onChangeText={password => this.setState({password})}
+          onSubmitEditing={this.handleSubmit}
         />
 
         <TouchableOpacity
