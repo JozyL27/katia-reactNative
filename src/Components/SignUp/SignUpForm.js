@@ -10,6 +10,9 @@ import TokenService from '../../services/token-service';
 import AuthService from '../../services/auth-api-service';
 
 export default class LoginForm extends Component {
+  static defaultProps = {
+    onRegistrationSuccess: () => {},
+  };
   state = {error: null, email: '', display_name: '', password: ''};
 
   // have to add ref to inputs to clear them

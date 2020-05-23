@@ -10,8 +10,14 @@ import {
 import SignUpForm from './SignUpForm';
 
 export default class SignUp extends Component {
+  static defaultProps = {
+    navigation: {
+      navigate: () => {},
+    },
+  };
   handleRegistrationSuccess = () => {
-    () => this.props.navigation.navigate('Login');
+    const {navigation} = this.props;
+    navigation.navigate('Login');
   };
 
   render() {
