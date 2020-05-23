@@ -12,6 +12,8 @@ import AuthService from '../../services/auth-api-service';
 export default class LoginForm extends Component {
   state = {error: null, email: '', display_name: '', password: ''};
 
+  // have to add ref to inputs to clear them
+
   handleSubmit = ev => {
     ev.preventDefault();
     const {email, display_name, password} = this.state;
@@ -33,7 +35,7 @@ export default class LoginForm extends Component {
             this.state.display_name = '';
             this.state.password = '';
             TokenService.saveAuthToken(res.authToken);
-            // this.props.onRegistrationSuccess(user.user_name);
+            this.props.onRegistrationSuccess();
           })
           .catch(error => this.setState({error: error.message}));
       })

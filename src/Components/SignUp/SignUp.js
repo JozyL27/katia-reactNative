@@ -10,6 +10,10 @@ import {
 import SignUpForm from './SignUpForm';
 
 export default class SignUp extends Component {
+  handleRegistrationSuccess = () => {
+    () => this.props.navigation.navigate('Login');
+  };
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -18,7 +22,7 @@ export default class SignUp extends Component {
           <Text style={styles.name}>Katia</Text>
         </View>
         <View style={styles.formContainer}>
-          <SignUpForm />
+          <SignUpForm onRegistrationSuccess={this.handleRegistrationSuccess} />
         </View>
         <Text style={styles.question}>Already have an account?</Text>
         <TouchableOpacity
