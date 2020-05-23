@@ -13,8 +13,10 @@ export default class LoginForm extends Component {
   state = {error: null, email: '', display_name: '', password: ''};
 
   // have to add ref to inputs to clear them
+  // add loading after press of button or send user to login on press
 
   handleSubmit = ev => {
+    this.setState({error: null});
     ev.preventDefault();
     const {email, display_name, password} = this.state;
     const user = {
@@ -31,6 +33,9 @@ export default class LoginForm extends Component {
           password: password,
         })
           .then(res => {
+            this.emailInput.clear();
+            this.usernameInput.clear();
+            this.passwordInput.clear();
             this.state.email = '';
             this.state.display_name = '';
             this.state.password = '';
@@ -58,6 +63,7 @@ export default class LoginForm extends Component {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          ref={input => (this.emailInput = input)}
           onChangeText={email => this.setState({email})}
         />
 
