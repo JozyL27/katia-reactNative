@@ -7,12 +7,42 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import AuthApiService from '../../services/auth-api-service';
 
 export default class LoginForm extends Component {
+  static defaultProps = {
+    onLoginSuccess: () => {},
+  };
+
+  state = {error: null, email: '', password: ''};
+
+  handleSubmitJwtAuth = ev => {
+    this.setState({error: null});
+    ev.preventDefault();
+    const {email, password} = this.state;
+    console.log(this.state);
+
+    AuthApiService.postLogin({
+      email: email.toLowerCase().trim(),
+      password: password.trim(),
+    })
+      .then(res => {
+        this.emailInput.clear();
+        this.passwordInput.clear();
+        this.state.email = '';
+        this.state.password = '';
+        this.props.onLoginSuccess(res.authToken);
+      })
+      .catch(res => {
+        this.setState({error: res.error});
+      });
+  };
   render() {
+    const {error} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
+        {error && <Text>{error}</Text>}
         <TextInput
           style={styles.input}
           placeholder="email"
@@ -22,6 +52,8 @@ export default class LoginForm extends Component {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          ref={input => (this.emailInput = input)}
+          onChangeText={email => this.setState({email})}
         />
         <TextInput
           style={styles.input}
@@ -30,9 +62,13 @@ export default class LoginForm extends Component {
           placeholderTextColor="rgba(255,255,255,0.7)"
           returnKeyType="go"
           ref={input => (this.passwordInput = input)}
+          onSubmitEditing={this.handleSubmitJwtAuth}
+          onChangeText={password => this.setState({password})}
         />
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={this.handleSubmitJwtAuth}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>

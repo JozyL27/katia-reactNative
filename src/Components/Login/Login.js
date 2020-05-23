@@ -8,8 +8,24 @@ import {
 } from 'react-native';
 import LoginForm from './LoginForm';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import UserContext from '../../Contexts/UserContext';
 
 export default class Login extends Component {
+  static defaultProps = {
+    navigation: {
+      navigate: () => {},
+    },
+  };
+
+  static contextType = UserContext;
+
+  handleLoginSuccess = token => {
+    const {navigation} = this.props;
+    navigation.navigate('Main');
+
+    this.context.processLogin(token);
+  };
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -17,7 +33,7 @@ export default class Login extends Component {
           <Text style={styles.name}>Katia</Text>
         </View>
         <View style={styles.formContainer}>
-          <LoginForm />
+          <LoginForm onLoginSuccess={this.handleLoginSuccess} />
         </View>
         <Text style={styles.question}>Don't have an account?</Text>
         <TouchableOpacity
