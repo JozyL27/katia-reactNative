@@ -88,7 +88,7 @@ export class UserProvider extends Component {
 
   generateLfmElements = games => {
     try { // try to split the games string at the commas and create JSX for each
-      const splitString = games.split(',')
+      const splitString = games.split(',');
       return splitString.map(game => {
         let gameName = game
         while (gameName[0] === ' ') { // Removes any spaces at the beginning of the name
