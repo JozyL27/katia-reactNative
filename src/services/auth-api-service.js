@@ -6,6 +6,7 @@ const AuthApiService = {
     return fetch(`${config.API_ENDPOINT}/auth/token`, {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'content-type': 'application/json',
       },
       body: JSON.stringify({ email, password })
@@ -31,19 +32,6 @@ const AuthApiService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       ))
-  },
-  refreshToken() {  // **For future implementation**
-    return fetch(`${config.API_ENDPOINT}/auth/token`, {
-      method: 'PUT',
-      headers: {
-        'authorization': `Bearer ${TokenService.getAuthToken()}`,
-      },
-    })
-      .then(res =>
-        (!res.ok)
-          ? res.json().then(e => Promise.reject(e))
-          : res.json()
-      )
   },
 }
 

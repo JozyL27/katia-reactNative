@@ -20,7 +20,6 @@ export default class LoginForm extends Component {
     this.setState({error: null});
     ev.preventDefault();
     const {email, password} = this.state;
-    console.log(this.state);
 
     AuthApiService.postLogin({
       email: email.toLowerCase().trim(),
@@ -37,6 +36,9 @@ export default class LoginForm extends Component {
         this.setState({error: res.error});
       });
   };
+  componentWillUnmount() {
+    this.setState({error: null, email: '', password: ''});
+  }
   render() {
     const {error} = this.state;
     return (
