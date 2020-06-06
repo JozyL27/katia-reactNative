@@ -38,6 +38,7 @@ export class UserProvider extends Component {
     const state = {user_id: -1, user: nullUser, socket: null, error: null};
 
     if (TokenService.hasAuthToken()) {
+      // eslint-disable-next-line prettier/prettier
       const account = TokenService.getUserFromToken(TokenService.getAuthToken()) || {};
       const socket = io(config.SOCKET_CONNECTION);
       state.user_id = account.id;
@@ -75,8 +76,8 @@ export class UserProvider extends Component {
   };
 
   processLogin = async token => {
-    TokenService.saveAuthToken(token);
-    const account = TokenService.getUserFromToken(TokenService.getAuthToken());
+    await TokenService.saveAuthToken(token);
+    const account = await TokenService.getUserFromToken(TokenService.getAuthToken());
     const profile = await ProfileService.getProfile(account.id);
     const socket = io(config.SOCKET_CONNECTION);
     this.setState({
