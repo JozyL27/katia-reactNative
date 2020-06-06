@@ -5,41 +5,45 @@ import {
   Text,
   KeyboardAvoidingView,
   Button,
+  Image,
 } from 'react-native';
 import UserContext from '../../Contexts/UserContext';
 import Queue from '../../Utils/Queue';
 import SwipeService from '../../services/swipe-service';
 
 export default class Main extends Component {
-  state = {queue: null, expanded: false, error: null, loading: false};
+  state = {queue: new Queue(), expanded: false, error: null, loading: false};
   static contextType = UserContext;
+
   componentDidMount() {
     SwipeService.getPotentialMatches(this.context.user_id)
       .then(potentialMatches => {
         const queue = new Queue();
-        console.log(potentialMatches);
         potentialMatches.queue.forEach(match => {
-          console.log(match);
           queue.enqueue(match);
         });
-        console.table(`this is before set state: ${queue}`);
         this.setState({queue});
-        console.table(`this is after set state: ${queue}`);
       })
       .catch(error => this.setState({error: error.message}));
   }
+
   render() {
-    const {queue} = this.state;
-    console.log(`this is at render ${queue}`);
-    // const userOne = queue.isEmpty() ? null : queue.peek();
-    // console.log(this.context.user_id);
+    const queue = this.state.queue;
+    const userOne = queue.isEmpty() ? null : queue.peek();
+    // console.log(userOne);
     return (
       <>
         {this.state.error && (
           <Text style={styles.error}>{this.state.error}</Text>
         )}
-        {/* <Text>{userOne.display_name}</Text> */}
-        {/* <Text>hello world</Text> */}
+        {userOne && (
+          <>
+            <Text style={{textAlign: 'center', marginTop: '50%'}}>
+              {userOne.display_name}
+            </Text>
+            <Image source={{uri: userOne.avatar}} style={{width: 200, height: 200}}/>
+          </>
+        )}
       </>
     );
   }
