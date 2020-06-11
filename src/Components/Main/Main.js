@@ -16,7 +16,6 @@ export default class Main extends Component {
   static contextType = UserContext;
 
   componentDidMount() {
-    console.log(typeof this.context.user_id);
     SwipeService.getPotentialMatches(this.context.user_id)
       .then(potentialMatches => {
         console.log(potentialMatches);
